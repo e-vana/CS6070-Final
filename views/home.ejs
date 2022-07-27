@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/styles.css"></link>
+  </head>
+  <body onload="cleanup()">
+    <div id="loader">
+      <div class="loader-container">
+        <div id="loader-position">
+          <h2>Getting Search Results...</h2>
+          <div class="ripple-container">
+            <div class="lds-ripple"><div></div><div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="search-functionality">
+      <div id="search-view">
+        <h1>Life Science Scholarly Document Search Engine</h1>
+        <input type="text" id="search-bar">
+        <button onclick="buttonHandler()">Search</button>
+      </div>
+      <div id="advanced-search">
+        <label >Advanced Search Features</label>
+        <input type="checkbox" id="advancedSearch" name="advancedSearch" onclick="toggleCheckBox()">
+      </div>
+      <div id="date-picker">
+        <h4>Date Range</h4>
+        <label for="">Date Start</label>
+        <input type="date" id="dateStartRange">
+        <label for="">Date End</label>
+        <input type="date" id="dateEndRange">
+      </div>
+    </div>
+
+  </body>
+</html>
+
+<script>
+  window.onpageshow = function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+  function cleanup(){
+    let loader = document.getElementById('loader');
+    loader.style.visibility = 'hidden';
+  }
+  function buttonHandler(){
+    //set loader
+    let loader = document.getElementById('loader');
+    loader.style.visibility = 'visible';
+    let searchInput = document.getElementById('search-bar');
+    let searchQuery = searchInput.value;
+
+    let dateStart = document.getElementById('dateStartRange').value;
+    let dateEnd = document.getElementById('dateEndRange').value;
+
+    if(dateStart && dateEnd ){
+      location.href=`/results/?query=${searchQuery}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
+    }else {
+      location.href=`/results/?query=${searchQuery}`;
+    }
+  }
+  function toggleCheckBox(){
+    let checkbox = document.getElementById('advancedSearch').checked;
+    if(checkbox == true){
+      let dateElement = document.getElementById('date-picker').style.visibility = 'visible';
+    };
+    if(checkbox == false){
+      let dateElement = document.getElementById('date-picker').style.visibility = 'hidden';
+    } 
+  }
+</script>

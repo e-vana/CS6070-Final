@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/styles.css"></link>
+  </head>
+  <body>
+    <div id="results-view">
+      <h1>Search Results for "<%= queryTerm %>"</h1>
+      <% if(searchResults.length == 0){ %>
+        <div class="result-card-none">No search results found.</div>
+      <%}%>
+      <% if(searchResults.length > 0){ %>
+        <div class="result-card-none"><%= searchResults.length %> Results Found</div>
+        <% searchResults.forEach(result => { %>
+          <div class="result-card">
+            <%= result['article_title'] %>
+          </div>
+        <%})%>
+      <%}%>
+
+    </div>
+  </body>
+  <script>
+    let cards = document.getElementsByClassName('result-card');
+    for(i=0; i < cards.length; i++){
+      cards[i].style.animation = `fadein 3s forwards ${.05*i}s`;
+    }
+  </script>
+</html>
